@@ -1,0 +1,191 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Live Weather</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'CSS/index.css' %}"> 
+
+</head>
+  <body>
+    <form method='get'>
+    <div class="searchbar">
+      
+        <div class="border border-1 border-white searchBarParentDiv">
+            <input type="text" name="city" class="inputfield" placeholder="Search" required>
+            <button><img src="{% static 'images/search.png' %}" alt="" width="35px" class="searchicon"><button>
+        </div>
+      
+    </div>
+  </form>
+    
+    
+    <div class="mainContentParentDiv d-flex">
+      <div class="leftDiv">
+          <div class="currentTempDiv leftChild p-3 d-flex flex-column gap-2">
+            <h6 class="m-0" id='cityName'>City Name:{{Weather.city}}</h6>
+            <h5 class="m-0" id='cityTemp'>{{ Weather.temparature }}&deg; C:</h5>
+            <h6 class="m-0" id='skyDesc'>Sky Description:{{ Weather.description }}</h6>
+            <hr class="line">
+            <div class="d-flex gap-2">
+              <img src="{% static 'images/calendar.png' %}" alt="" width="25px">
+              <h6 class="m-0">Date:</h6>
+            </div>
+            <div class="d-flex gap-2">
+              <img src="{% static 'images/time.png' %}" alt="" width="25px">
+              <h6 class="m-0">Time</h6>
+            </div>
+          </div>
+          <div class="nextFiveDays leftChild p-3 d-flex flex-column gap-2">
+            
+            <h6 class="m-0" id="comingFiveDaysTitle">Coming 5 Days</h6>
+            
+            <div class="d-flex flex-column gap-1">
+              {% for day in Forecast %}
+              <div class="forecastRow d-flex align-items-center justify-content-between">
+                <div class="d-flex gap-2 align-items-center"> 
+                  <img src="{% static 'images/cloud.png' %}" alt="" width="35px">
+                  <h6>{{ day.temp }} &deg;C</h6>
+                </div>
+                <h6>{{ day.day }}</h6>
+                <h6>{{ day.date }}</h6>
+                
+              </div>
+              {% endfor %}
+              
+            
+
+            </div>
+            
+          </div>
+
+
+      </div>
+
+      <div class="rightDiv">
+        <div class="rightRow rowOne d-flex gap-2 justify-content-between align-items-center">
+          
+          <div class="extrsMetric d-flex gap-3">
+            <img src="{% static 'images/humidity.png' %}" alt="" width="35px">
+            <div>
+              <h6 class="m-0"> Humidity</h6>
+              <h6 class="m-0">{{ Weather.humidity }}</h6>
+
+            </div>
+          </div>
+
+          <div class="extrsMetric d-flex gap-3">
+            <img src="{% static 'images/wind.png' %}" alt="" width="35px">
+            <div>
+              <h6 class="m-0">Wind Speed</h6>
+              <h6 class="m-0">{{ Weather.wind_speed }} m/s</h6>
+
+            </div>
+          </div>
+
+          <div class="extrsMetric d-flex gap-3">
+            <img src="{% static 'images/feels like.png' %}" alt="" width="35px">
+            <div>
+              <h6 class="m-0">Feels like</h6>
+              <h6 class="m-0">{{ Weather.feels_like }}&deg;C</h6>
+
+            </div>
+          </div>
+
+          <div class="extrsMetric d-flex gap-3">
+            <img src="{% static 'images/visibility.png' %}" alt="" width="35px">
+            <div>
+              <h6 class="m-0">Visibility</h6>
+              <h6 class="m-0">Metric Value</h6>
+
+            </div>
+          </div>
+
+        </div>
+        
+        
+        
+        <div class="rightRow rowTwo d-flex justify-content-between align-items-center">
+          <div class="AQI rowTwoDiv p-3 d-flex flex-column gap-2">
+              <h5>Air Quality Index(AQI)</h5>
+
+              <div class="d-flex align-items-center">
+                <img src="{% static 'images/wind.png' %}" alt="" width="40px">
+                <div class="text-center">
+                  <h6>CO2</h6>
+                  <h6>{{ AirQuality.co }} µg/m³</h6>
+                </div>
+                <div class="text-center">
+                  <h6>SO2</h6>
+                  <h6>{{ AirQuality.so2 }} µg/m³</h6>
+                </div>
+                <div class="text-center">
+                  <h6>O2</h6>
+                  <h6>{{ AirQuality.o3 }} µg/m³</h6>
+                </div>
+                <div class="text-center">
+                  <h6>NO2</h6>
+                  <h6>{{ AirQuality.no2 }} µg/m³</h6>
+                </div>
+              </div>
+          </div>
+          
+          <div class="sunRise rowTwoDiv p-3 gap-2">
+            <h5 class="m-0">Sunrise & Sunset</h5>
+            <div class="d-flex justify-content-between">
+              <div class="sunriseDiv d-flex gap-2 align-items-center">
+                <img src="{% static 'images/sunrise.png' %}" alt="" width="50px">
+                <div class="d-flex flex-column gap-1">
+                  <h6 class="m-0">Sunrise</h6>
+                  <h5 class="m-0">{{ Weather.sunrise }}</h5>
+                </div>
+              </div>
+              <div class="sunsetDiv d-flex gap-2 align-items-center">
+                <img src="{% static 'images/Moon.jpg' %}" alt="" width="50px">
+                <div class="d-flex flex-column gap-2">
+                  <h6 class="m-0">Sunset</h6>
+                  <h5 class="m-0">{{ Weather.sunset }}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="rightRow rowThree d-flex flex-column gap-2">
+          <h5 class="m-0"> Today</h5>
+          {% for entry in TodayForecast %}
+          <div class="d-flex justify-content-between todayTempParantDiv">
+            
+              <div class="todayTemp">
+                <h6>{{ entry.time }}</h6>
+                <img src="{% static 'images/cloudy.jpg' %}" alt="" width="35px">
+                <h5>{{ entry.temp }} &deg; C</h5>
+              </div>
+            
+            
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    
+    </div>
+    
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" 
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" 
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js" 
+    integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+" 
+    crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    
+  
+  </body>
+</html>
