@@ -1,0 +1,33 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+db.sqlite3
+*.sqlite3
+
+# If you use .env to store secrets
+.env
+
+# Static files
+/static/
+/media/
+
+# Virtual Environments
+venv/
+env/
+
+# VS Code
+.vscode/
+
+# Mac OS
+.DS_Store
